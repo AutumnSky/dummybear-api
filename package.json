@@ -1,0 +1,8 @@
+{
+  "name": "dummybear-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/AutumnSky/dummybear-api.git",
+  "author": "MJ K <capu1004@gmail.com>",
+  "license": "MIT"
+}
