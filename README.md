@@ -1,8 +1,10 @@
-## Authentication
-[ ] login
+## APIs
+[x] signup
+[ ] signin
 [ ] logout
 
-## Authorization
+## Authentication & Authorization
+[ ] social login
 [ ] admin
 [ ] user group A
 [ ] user group B
@@ -17,4 +19,4 @@
 [ ] unit test
 [ ] debugging
 [ ] API documentation
-
+[ ] elegant error handling
