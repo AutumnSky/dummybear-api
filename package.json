@@ -6,7 +6,7 @@
   "author": "MJ K <doingnone@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node src/server.js"
+    "start": "NODE_PATH=src nodemon --exec babel-node src/server.js"
   },
   "dependencies": {
     "crypto": "^1.0.1",
@@ -17,7 +17,8 @@
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "tracer": "^0.9.8"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",

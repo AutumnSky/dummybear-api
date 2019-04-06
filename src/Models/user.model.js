@@ -15,5 +15,9 @@ const schema = new mongoose.Schema({
   }
 });
 
+schema.method.checkPassword = function(cb) {
+  console.log('check password');
+};
+
 const model = mongoose.model('User', schema);
 export default model;

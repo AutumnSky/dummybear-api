@@ -20,3 +20,4 @@
 [ ] debugging
 [ ] API documentation
 [ ] elegant error handling
+[x] elegant logger

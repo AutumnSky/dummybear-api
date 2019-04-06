@@ -1,6 +1,7 @@
 require('dotenv').config();
 import express from 'express';
 import morgan from 'morgan';
+import logger from './Utils/logger';
 import mongoose from 'mongoose';
 import routes from './Routes';
 import './Utils/passport';
@@ -12,10 +13,10 @@ const app = express();
 // db
 const db = mongoose.connection;
 db.on('error', (error) => {
-  console.log('❌  db error'.error);
+  logger.info(`❌  ${error}`);
 });
 db.once('open', () => {
-  console.log('✅  db connected');
+  logger.info('✅  db connected');
 });
 mongoose.connect(process.env.DB, { useNewUrlParser: true });
 
@@ -23,4 +24,4 @@ mongoose.connect(process.env.DB, { useNewUrlParser: true });
 app.use(morgan('dev'));
 routes(app);
 
-app.listen(PORT, () => console.log(`✅  server running on http://localhost:${PORT}`));
+app.listen(PORT, () => logger.info(`✅  server running on http://localhost:${PORT}`));
