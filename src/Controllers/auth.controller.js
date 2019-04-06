@@ -1,5 +1,6 @@
 import User from 'Models/user.model';
 import * as responsor from 'Utils/responsor';
+import passport from 'passport';
 
 export const signUpLocal = async (req, res) => {
   const { email, password } = req.body;
@@ -16,17 +17,19 @@ export const signUpLocal = async (req, res) => {
   }
 };
 
-export const signIn = async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    const isValid = await user.checkPassword(password);
-    if (isValid) {
-      responsor.sendData(res, true);
-    } else {
-      responsor.sendError(res, 'invalid password', 401);
+export const signIn = async (req, res) => {
+  // passport login
+  passport.authenticate('local', { session: false }, (err, loginUser) => {
+    // login complete
+    if (err) {
+      responsor.sendError(res, err.message, 500);
+      return;
     }
-  } catch (error) {
-    responsor.sendError(res, error.message, 400);
-  }
+
+    loginUser.password = undefined;
+    loginUser.salt = undefined;
+
+    // TODO: token 발급
+    responsor.sendData(res, { loginUser });
+  })(req, res);
 };

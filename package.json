@@ -6,13 +6,15 @@
   "author": "MJ K <doingnone@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_PATH=src nodemon --exec babel-node src/server.js"
+    "start": "NODE_PATH=src nodemon --exec babel-node src/server.js --delay 2"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "crypto": "^1.0.1",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
+    "express-validation": "^1.0.2",
+    "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.22",
     "morgan": "^1.9.1",

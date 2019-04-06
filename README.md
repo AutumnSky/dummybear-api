@@ -21,4 +21,5 @@
 -[ ] API documentation
 -[x] elegant error handling
 -[x] elegant logger
--[ ] Promis & Async/Await
+-[x] Promis & async/await
+-[x] request validation
