@@ -3,6 +3,7 @@ import express from 'express';
 import morgan from 'morgan';
 import logger from './Utils/logger';
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 import routes from './Routes';
 import './Utils/passport';
 
@@ -21,6 +22,8 @@ db.once('open', () => {
 mongoose.connect(process.env.DB, { useNewUrlParser: true });
 
 // routes
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 routes(app);
 

@@ -1,21 +1,43 @@
 import User from 'Models/user.model';
-import logger from 'Utils/logger.js';
+import logger from 'Utils/logger';
+import * as responsor from 'Utils/responsor';
 
-export const signUpLocal = async (req, res) => {
-  logger.debug('signup local');
-  const newUser = await User.create({
-    email: 'test@gmail.com',
-    password: 'password',
-    salt: 'salt'
-  });
-  res.json(newUser);
+export const signUpLocal = (req, res) => {
+  const { email, password } = req.body;
+  User.createPassword(
+    password,
+    async ({ salt, encryptedPassword }) => {
+      try {
+        const newUser = await User.create({
+          email,
+          password: encryptedPassword,
+          salt
+        });
+        responsor.sendData(res, newUser);
+      } catch (error) {
+        responsor.sendError(res, error.message, 400);
+      }
+    },
+    (err) => {
+      responsor.sendError(res, error.message, 400);
+    }
+  );
 };
 
-export const signIn = async (req, res) => {
+export const signIn = async (req, res, next) => {
   try {
-    const user = await User.findOne({ email: 'test@gmail.com' });
-    logger.debug('user', user.email);
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    user.checkPassword(
+      password,
+      () => {
+        responsor.sendData(res, true);
+      },
+      (error) => {
+        responsor.sendError(res, 'invalid password', 401);
+      }
+    );
   } catch (error) {
-    logger.debug('error', error);
+    responsor.sendError(res, error.message, 400);
   }
 };

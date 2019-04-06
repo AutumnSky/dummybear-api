@@ -9,6 +9,7 @@
     "start": "NODE_PATH=src nodemon --exec babel-node src/server.js"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "crypto": "^1.0.1",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",

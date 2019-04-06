@@ -19,5 +19,5 @@
 [ ] unit test
 [ ] debugging
 [ ] API documentation
-[ ] elegant error handling
+[x] elegant error handling
 [x] elegant logger
