@@ -1,6 +1,7 @@
 import User from 'Models/user.model';
 import * as responsor from 'Utils/responsor';
 import passport from 'passport';
+import jwt from 'jsonwebtoken';
 
 export const signUpLocal = async (req, res) => {
   const { email, password } = req.body;
@@ -26,10 +27,15 @@ export const signIn = async (req, res) => {
       return;
     }
 
-    loginUser.password = undefined;
-    loginUser.salt = undefined;
+    // loginUser을 jwt.sign에 인자로 넣어주면
+    // "Expected \"payload\" to be a plain object." 란 오류가 발생하므로
+    // plain object로 만들어준다.
+    const userData = {
+      email: loginUser.email
+    };
 
-    // TODO: token 발급
-    responsor.sendData(res, { loginUser });
+    // token 발급
+    const token = jwt.sign(userData, process.env.JWT_SECRET);
+    responsor.sendData(res, { userData, token });
   })(req, res);
 };
