@@ -22,7 +22,7 @@ export const signIn = async (req, res) => {
   // passport login
   passport.authenticate('local', { session: false }, (err, loginUser) => {
     // login complete
-    if (err) {
+    if (err || !loginUser) {
       responsor.sendError(res, err.message, 500);
       return;
     }
@@ -36,6 +36,8 @@ export const signIn = async (req, res) => {
 
     // token 발급
     const token = jwt.sign(userData, process.env.JWT_SECRET);
+
+    // response
     responsor.sendData(res, { userData, token });
   })(req, res);
 };

@@ -1,4 +1,4 @@
-require('dotenv').config();
+import './init';
 import express from 'express';
 import morgan from 'morgan';
 import logger from './Utils/logger';
@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import validation from 'express-validation';
 import routes from './Routes';
-import './Utils/passport';
+import 'Utils/passport';
 
 const PORT = process.env.PORT || 5000;
 
