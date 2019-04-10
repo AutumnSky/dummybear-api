@@ -17,6 +17,20 @@ const schema = new mongoose.Schema({
   }
 });
 
+// ref: https://github.com/Automattic/mongoose/issues/3298#issuecomment-356414409
+// 이것 대신 orFail()을 사용
+/*
+schema.static('findMinOne', function(conditions) {
+  return this.find(conditions).then((res) => {
+    if (res.length == 0) {
+      throw new Error('user not found');
+    } else {
+      return next();
+    }
+  });
+});
+*/
+
 // ref: https://www.zerocho.com/category/NodeJS/post/593a487c2ed1da0018cff95d
 schema.statics.encryptePassword = function(password) {
   return new Promise((resolver, reject) => {

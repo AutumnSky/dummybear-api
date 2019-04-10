@@ -44,3 +44,4 @@
 - [x] request validation
 > https://www.npmjs.com/package/express-validation
 > https://www.npmjs.com/package/joi
+- [ ] send email

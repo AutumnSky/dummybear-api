@@ -2,6 +2,7 @@ import './init';
 import express from 'express';
 import morgan from 'morgan';
 import logger from './Utils/logger';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import validation from 'express-validation';
@@ -24,6 +25,7 @@ db.once('open', () => {
 mongoose.connect(process.env.DB, { useNewUrlParser: true, useCreateIndex: true });
 
 // routes
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));

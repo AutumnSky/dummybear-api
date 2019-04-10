@@ -11,7 +11,7 @@ passport.use(
     },
     async function(email, password, cb) {
       try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).orFail();
         const isValid = await user.checkPassword(password);
         if (isValid) {
           cb(null, user);
@@ -33,7 +33,7 @@ passport.use(
     async function(jwtPayload, cb) {
       const email = jwtPayload.email;
       try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).orFail();
         cb(null, user);
       } catch (error) {
         cb(error);

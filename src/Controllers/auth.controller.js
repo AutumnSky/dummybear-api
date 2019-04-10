@@ -23,21 +23,21 @@ export const signIn = async (req, res) => {
   passport.authenticate('local', { session: false }, (err, loginUser) => {
     // login complete
     if (err || !loginUser) {
-      responsor.sendError(res, err.message, 500);
+      responsor.sendError(res, err.message, 401);
       return;
     }
 
     // loginUser을 jwt.sign에 인자로 넣어주면
     // "Expected \"payload\" to be a plain object." 란 오류가 발생하므로
     // plain object로 만들어준다.
-    const userData = {
+    loginUser = {
       email: loginUser.email
     };
 
     // token 발급
-    const token = jwt.sign(userData, process.env.JWT_SECRET);
+    const token = jwt.sign(loginUser, process.env.JWT_SECRET);
 
     // response
-    responsor.sendData(res, { userData, token });
+    responsor.sendData(res, { loginUser, token });
   })(req, res);
 };
