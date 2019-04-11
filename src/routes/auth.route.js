@@ -10,5 +10,6 @@ const router = express.Router();
 // https://www.zerocho.com/category/NodeJS/post/57b7101ecfbef617003bf457
 router.post('/signup-local', validate(validation.signUp), authController.signUpLocal);
 router.post('/signin', validate(validation.signIn), authController.signIn);
+router.post('/signin/auto', validate(validation.autoSignIn), authController.autoSignIn);
 
 export default router;

@@ -34,10 +34,32 @@ export const signIn = async (req, res) => {
       email: loginUser.email
     };
 
-    // token 발급
+    // new token
     const token = jwt.sign(loginUser, process.env.JWT_SECRET);
 
     // response
     responsor.sendData(res, { loginUser, token });
   })(req, res);
+};
+
+export const autoSignIn = async (req, res) => {
+  const { token } = req.body;
+
+  passport.authenticate('jwt-body', { session: false }, (err, loginUser) => {
+    if (err || !loginUser) {
+      return responsor.sendError(res, 'Unauthorized', 401);
+    }
+
+    // ISSUE: 이상하게 콜백에서 받은 loginUser를 바로 jwt.sign에 사용하면 본 콜백이 한번 더 호출된다.
+    // 그래서 새로운 plain 객체를 새로 할당해준다.
+    loginUser = {
+      email: loginUser.email
+    };
+
+    // refresh token
+    const token = jwt.sign(loginUser, process.env.JWT_SECRET);
+
+    // response
+    responsor.sendData(res, { loginUser, token });
+  })(req, res); // passport.authenticate는 함수를 반환한다는 것에 주의할 것
 };

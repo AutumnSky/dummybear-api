@@ -16,3 +16,9 @@ export const signIn = {
     password: passwordValidation
   }
 };
+
+export const autoSignIn = {
+  body: {
+    token: Joi.string().required()
+  }
+};
