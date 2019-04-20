@@ -2,6 +2,7 @@ import User from 'Models/user.model';
 import * as responsor from 'Utils/responsor';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
+import config from "config";
 
 export const signUpLocal = async (req, res) => {
   const { email, password } = req.body;
@@ -35,7 +36,7 @@ export const signIn = async (req, res) => {
     };
 
     // new token
-    const token = jwt.sign(loginUser, process.env.JWT_SECRET);
+    const token = jwt.sign(loginUser, config.get("JWT_SECRET"));
 
     // response
     responsor.sendData(res, { loginUser, token });
@@ -57,7 +58,7 @@ export const autoSignIn = async (req, res) => {
     };
 
     // refresh token
-    const token = jwt.sign(loginUser, process.env.JWT_SECRET);
+    const token = jwt.sign(loginUser, config.get("JWT_SECRET"));
 
     // response
     responsor.sendData(res, { loginUser, token });

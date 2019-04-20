@@ -17,6 +17,7 @@
 - [ ] delete
 
 ## ETC
+- [ ] config dev/prod
 - [ ] unit test
 - [x] debugging
 > https://stackoverflow.com/a/50729890/911528

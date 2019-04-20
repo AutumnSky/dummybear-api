@@ -6,13 +6,14 @@
   "author": "MJ K <doingnone@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_PATH=src nodemon --exec babel-node src/server.js --delay 2"
+    "dev": "NODE_PATH=src nodemon --exec babel-node src/server.js --delay 2",
+    "start": "NODE_PATH=src NODE_ENV=production nodemon --exec babel-node src/server.js --delay 2"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "config": "^3.1.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
-    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-validation": "^1.0.2",
     "joi": "^14.3.1",

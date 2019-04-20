@@ -1,4 +1,5 @@
 import passport from 'passport';
+import config from "config";
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
 import User from 'Models/user.model';
@@ -30,7 +31,7 @@ passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET
+      secretOrKey: config.get("JWT_SECRET")
     },
     async function(jwtPayload, cb) {
       const email = jwtPayload.email;
@@ -50,7 +51,7 @@ passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJwt.fromBodyField('token'),
-      secretOrKey: process.env.JWT_SECRET
+      secretOrKey: config.get("JWT_SECRET")
     },
     async function(jwtPayload, cb) {
       const email = jwtPayload.email;
