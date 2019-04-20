@@ -1,4 +1,4 @@
-import './init';
+import '@babel/polyfill';
 import express from 'express';
 import morgan from 'morgan';
 import config from "config";
@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 routes(app);
 app.use("/", (req, res)=>{
-  res.send(`hello for ${process.env.NODE_ENV} 😀`);
+  res.send(`hello for ${process.env.NODE_ENV}`);
 })
 
 // ref: https://www.npmjs.com/package/express-validation

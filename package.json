@@ -7,7 +7,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_PATH=src nodemon --exec babel-node src/server.js --delay 2",
-    "start": "NODE_PATH=src NODE_ENV=production nodemon --exec babel-node src/server.js --delay 2"
+    "prebuild": "rm -rf build",
+    "build": "babel src --out-dir build",
+    "predeploy": "yarn build",
+    "deploy": "./deploy.sh",
+    "prestart": "yarn build",
+    "start": "NODE_PATH=build NODE_ENV=production pm2 start build/server.js --name dummybear-api"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -29,6 +34,7 @@
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
+    "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "nodemon": "^1.18.10"
   }
