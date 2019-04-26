@@ -7,10 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_PATH=src nodemon --exec babel-node src/server.js --delay 2",
+    "deploy": "./deploy.sh",
     "prebuild": "rm -rf build",
     "build": "babel src --out-dir build",
-    "predeploy": "yarn build",
-    "deploy": "./deploy.sh",
     "prestart": "yarn build",
     "start": "NODE_PATH=build NODE_ENV=production pm2 start build/server.js --name dummybear-api"
   },
